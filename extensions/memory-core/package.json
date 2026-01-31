@@ -1,0 +1,17 @@
+{
+  "name": "@rebootix/memory-core",
+  "version": "2026.1.30",
+  "description": "Rebootix core memory search plugin",
+  "type": "module",
+  "devDependencies": {
+    "rebootix": "workspace:*"
+  },
+  "peerDependencies": {
+    "rebootix": ">=2026.1.26"
+  },
+  "rebootix": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

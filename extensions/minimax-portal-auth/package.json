@@ -1,0 +1,14 @@
+{
+  "name": "@rebootix/minimax-portal-auth",
+  "version": "2026.1.30",
+  "description": "Rebootix MiniMax Portal OAuth provider plugin",
+  "type": "module",
+  "devDependencies": {
+    "rebootix": "workspace:*"
+  },
+  "rebootix": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

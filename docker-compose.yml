@@ -1,0 +1,45 @@
+services:
+  rebootix-gateway:
+    image: ${REBOOTIX_IMAGE:-rebootix:local}
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      REBOOTIX_GATEWAY_TOKEN: ${REBOOTIX_GATEWAY_TOKEN}
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
+      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
+      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
+    volumes:
+      - ${REBOOTIX_CONFIG_DIR}:/home/node/.rebootix
+      - ${REBOOTIX_WORKSPACE_DIR}:/home/node/.rebootix/workspace
+    ports:
+      - "${REBOOTIX_GATEWAY_PORT:-18789}:18789"
+      - "${REBOOTIX_BRIDGE_PORT:-18790}:18790"
+    init: true
+    restart: unless-stopped
+    command:
+      [
+        "node",
+        "dist/index.js",
+        "gateway",
+        "--bind",
+        "${REBOOTIX_GATEWAY_BIND:-lan}",
+        "--port",
+        "${REBOOTIX_GATEWAY_PORT:-18789}",
+      ]
+
+  rebootix-cli:
+    image: ${REBOOTIX_IMAGE:-rebootix:local}
+    environment:
+      HOME: /home/node
+      TERM: xterm-256color
+      BROWSER: echo
+      CLAUDE_AI_SESSION_KEY: ${CLAUDE_AI_SESSION_KEY}
+      CLAUDE_WEB_SESSION_KEY: ${CLAUDE_WEB_SESSION_KEY}
+      CLAUDE_WEB_COOKIE: ${CLAUDE_WEB_COOKIE}
+    volumes:
+      - ${REBOOTIX_CONFIG_DIR}:/home/node/.rebootix
+      - ${REBOOTIX_WORKSPACE_DIR}:/home/node/.rebootix/workspace
+    stdin_open: true
+    tty: true
+    init: true
+    entrypoint: ["node", "dist/index.js"]

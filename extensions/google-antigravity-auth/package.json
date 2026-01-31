@@ -1,0 +1,14 @@
+{
+  "name": "@rebootix/google-antigravity-auth",
+  "version": "2026.1.30",
+  "description": "Rebootix Google Antigravity OAuth provider plugin",
+  "type": "module",
+  "devDependencies": {
+    "rebootix": "workspace:*"
+  },
+  "rebootix": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

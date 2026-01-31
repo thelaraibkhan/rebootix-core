@@ -1,0 +1,28 @@
+{
+  "name": "@rebootix/mattermost",
+  "version": "2026.1.30",
+  "description": "Rebootix Mattermost channel plugin",
+  "type": "module",
+  "devDependencies": {
+    "rebootix": "workspace:*"
+  },
+  "rebootix": {
+    "extensions": [
+      "./index.ts"
+    ],
+    "channel": {
+      "id": "mattermost",
+      "label": "Mattermost",
+      "selectionLabel": "Mattermost (plugin)",
+      "docsPath": "/channels/mattermost",
+      "docsLabel": "mattermost",
+      "blurb": "self-hosted Slack-style chat; install the plugin to enable.",
+      "order": 65
+    },
+    "install": {
+      "npmSpec": "@rebootix/mattermost",
+      "localPath": "extensions/mattermost",
+      "defaultChoice": "npm"
+    }
+  }
+}

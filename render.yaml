@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: rebootix
+    runtime: docker
+    plan: starter
+    healthCheckPath: /health
+    envVars:
+      - key: PORT
+        value: "8080"
+      - key: SETUP_PASSWORD
+        sync: false
+      - key: REBOOTIX_STATE_DIR
+        value: /data/.rebootix
+      - key: REBOOTIX_WORKSPACE_DIR
+        value: /data/workspace
+      - key: REBOOTIX_GATEWAY_TOKEN
+        generateValue: true
+    disk:
+      name: rebootix-data
+      mountPath: /data
+      sizeGB: 1
