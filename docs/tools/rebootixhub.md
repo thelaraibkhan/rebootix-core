@@ -10,7 +10,7 @@ read_when:
 
 RebootixHub is the **public skill registry for Rebootix**. It is a free service: all skills are public, open, and visible to everyone for sharing and reuse. A skill is just a folder with a `SKILL.md` file (plus supporting text files). You can browse skills in the web app or use the CLI to search, install, update, and publish skills.
 
-Site: [clawhub.com](https://clawhub.com)
+Site: [rebootixhub.com](https://rebootixhub.com)
 
 ## Who this is for (beginner-friendly)
 
@@ -25,9 +25,9 @@ If you want to add new capabilities to your Rebootix agent, RebootixHub is the e
 
 1. Install the CLI (see next section).
 2. Search for something you need:
-   - `clawhub search "calendar"`
+   - `rebootixhub search "calendar"`
 3. Install a skill:
-   - `clawhub install <skill-slug>`
+   - `rebootixhub install <skill-slug>`
 4. Start a new Rebootix session so it picks up the new skill.
 
 ## Install the CLI
@@ -35,16 +35,16 @@ If you want to add new capabilities to your Rebootix agent, RebootixHub is the e
 Pick one:
 
 ```bash
-npm i -g clawhub
+npm i -g rebootixhub
 ```
 
 ```bash
-pnpm add -g clawhub
+pnpm add -g rebootixhub
 ```
 
 ## How it fits into Rebootix
 
-By default, the CLI installs skills into `./skills` under your current working directory. If a Rebootix workspace is configured, `clawhub` falls back to that workspace unless you override `--workdir` (or `CLAWHUB_WORKDIR`). Rebootix loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.rebootix/skills` or bundled skills, workspace skills take precedence.
+By default, the CLI installs skills into `./skills` under your current working directory. If a Rebootix workspace is configured, `rebootixhub` falls back to that workspace unless you override `--workdir` (or `CLAWHUB_WORKDIR`). Rebootix loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.rebootix/skills` or bundled skills, workspace skills take precedence.
 
 For more detail on how skills are loaded, shared, and gated, see
 [Skills](/tools/skills).
@@ -72,9 +72,9 @@ Global options (apply to all commands):
 
 Auth:
 
-- `clawhub login` (browser flow) or `clawhub login --token <token>`
-- `clawhub logout`
-- `clawhub whoami`
+- `rebootixhub login` (browser flow) or `rebootixhub login --token <token>`
+- `rebootixhub logout`
+- `rebootixhub whoami`
 
 Options:
 
@@ -84,29 +84,29 @@ Options:
 
 Search:
 
-- `clawhub search "query"`
+- `rebootixhub search "query"`
 - `--limit <n>`: Max results.
 
 Install:
 
-- `clawhub install <slug>`
+- `rebootixhub install <slug>`
 - `--version <version>`: Install a specific version.
 - `--force`: Overwrite if the folder already exists.
 
 Update:
 
-- `clawhub update <slug>`
-- `clawhub update --all`
+- `rebootixhub update <slug>`
+- `rebootixhub update --all`
 - `--version <version>`: Update to a specific version (single slug only).
 - `--force`: Overwrite when local files do not match any published version.
 
 List:
 
-- `clawhub list` (reads `.clawhub/lock.json`)
+- `rebootixhub list` (reads `.rebootixhub/lock.json`)
 
 Publish:
 
-- `clawhub publish <path>`
+- `rebootixhub publish <path>`
 - `--slug <slug>`: Skill slug.
 - `--name <name>`: Display name.
 - `--version <version>`: Semver version.
@@ -115,12 +115,12 @@ Publish:
 
 Delete/undelete (owner/admin only):
 
-- `clawhub delete <slug> --yes`
-- `clawhub undelete <slug> --yes`
+- `rebootixhub delete <slug> --yes`
+- `rebootixhub undelete <slug> --yes`
 
 Sync (scan local skills + publish new/updated):
 
-- `clawhub sync`
+- `rebootixhub sync`
 - `--root <dir...>`: Extra scan roots.
 - `--all`: Upload everything without prompts.
 - `--dry-run`: Show what would be uploaded.
@@ -134,19 +134,19 @@ Sync (scan local skills + publish new/updated):
 ### Search for skills
 
 ```bash
-clawhub search "postgres backups"
+rebootixhub search "postgres backups"
 ```
 
 ### Download new skills
 
 ```bash
-clawhub install my-skill-pack
+rebootixhub install my-skill-pack
 ```
 
 ### Update installed skills
 
 ```bash
-clawhub update --all
+rebootixhub update --all
 ```
 
 ### Back up your skills (publish or sync)
@@ -154,13 +154,13 @@ clawhub update --all
 For a single skill folder:
 
 ```bash
-clawhub publish ./my-skill --slug my-skill --name "My Skill" --version 1.0.0 --tags latest
+rebootixhub publish ./my-skill --slug my-skill --name "My Skill" --version 1.0.0 --tags latest
 ```
 
 To scan and back up many skills at once:
 
 ```bash
-clawhub sync --all
+rebootixhub sync --all
 ```
 
 ## Advanced details (technical)
@@ -177,16 +177,16 @@ Updates compare the local skill contents to registry versions using a content ha
 
 ### Sync scanning and fallback roots
 
-`clawhub sync` scans your current workdir first. If no skills are found, it falls back to known legacy locations (for example `~/rebootix/skills` and `~/.rebootix/skills`). This is designed to find older skill installs without extra flags.
+`rebootixhub sync` scans your current workdir first. If no skills are found, it falls back to known legacy locations (for example `~/rebootix/skills` and `~/.rebootix/skills`). This is designed to find older skill installs without extra flags.
 
 ### Storage and lockfile
 
-- Installed skills are recorded in `.clawhub/lock.json` under your workdir.
+- Installed skills are recorded in `.rebootixhub/lock.json` under your workdir.
 - Auth tokens are stored in the RebootixHub CLI config file (override via `CLAWHUB_CONFIG_PATH`).
 
 ### Telemetry (install counts)
 
-When you run `clawhub sync` while logged in, the CLI sends a minimal snapshot to compute install counts. You can disable this entirely:
+When you run `rebootixhub sync` while logged in, the CLI sends a minimal snapshot to compute install counts. You can disable this entirely:
 
 ```bash
 export CLAWHUB_DISABLE_TELEMETRY=1

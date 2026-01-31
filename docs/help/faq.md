@@ -1001,7 +1001,7 @@ Use managed overrides instead of editing the repo copy. Put your changes in `~/.
 
 ### Can I load skills from a custom folder
 
-Yes. Add extra directories via `skills.load.extraDirs` in `~/.rebootix/rebootix.json` (lowest precedence). Default precedence remains: `<workspace>/skills` → `~/.rebootix/skills` → bundled → `skills.load.extraDirs`. `clawhub` installs into `./skills` by default, which Rebootix treats as `<workspace>/skills`.
+Yes. Add extra directories via `skills.load.extraDirs` in `~/.rebootix/rebootix.json` (lowest precedence). Default precedence remains: `<workspace>/skills` → `~/.rebootix/skills` → bundled → `skills.load.extraDirs`. `rebootixhub` installs into `./skills` by default, which Rebootix treats as `<workspace>/skills`.
 
 ### How can I use different models for different tasks
 
@@ -1049,16 +1049,16 @@ Docs: [Cron jobs](/automation/cron-jobs), [Cron vs Heartbeat](/automation/cron-v
 ### How do I install skills on Linux
 
 Use **RebootixHub** (CLI) or drop skills into your workspace. The macOS Skills UI isn’t available on Linux.
-Browse skills at https://clawhub.com.
+Browse skills at https://rebootixhub.com.
 
 Install the RebootixHub CLI (pick one package manager):
 
 ```bash
-npm i -g clawhub
+npm i -g rebootixhub
 ```
 
 ```bash
-pnpm add -g clawhub
+pnpm add -g rebootixhub
 ```
 
 ### Can Rebootix run tasks on a schedule or continuously in the background
@@ -1126,11 +1126,11 @@ targeting those APIs.
 Install skills:
 
 ```bash
-clawhub install <skill-slug>
-clawhub update --all
+rebootixhub install <skill-slug>
+rebootixhub update --all
 ```
 
-RebootixHub installs into `./skills` under your current directory (or falls back to your configured Rebootix workspace); Rebootix treats that as `<workspace>/skills` on the next session. For shared skills across agents, place them in `~/.rebootix/skills/<name>/SKILL.md`. Some skills expect binaries installed via Homebrew; on Linux that means Linuxbrew (see the Homebrew Linux FAQ entry above). See [Skills](/tools/skills) and [RebootixHub](/tools/clawhub).
+RebootixHub installs into `./skills` under your current directory (or falls back to your configured Rebootix workspace); Rebootix treats that as `<workspace>/skills` on the next session. For shared skills across agents, place them in `~/.rebootix/skills/<name>/SKILL.md`. Some skills expect binaries installed via Homebrew; on Linux that means Linuxbrew (see the Homebrew Linux FAQ entry above). See [Skills](/tools/skills) and [RebootixHub](/tools/rebootixhub).
 
 ### How do I install the Chrome extension for browser takeover
 

@@ -370,16 +370,16 @@
       "destination": "/start/rebootix"
     },
     {
-      "source": "/clawhub",
-      "destination": "/tools/clawhub"
+      "source": "/rebootixhub",
+      "destination": "/tools/rebootixhub"
     },
     {
       "source": "/clawdhub",
-      "destination": "/tools/clawhub"
+      "destination": "/tools/rebootixhub"
     },
     {
       "source": "/tools/clawdhub",
-      "destination": "/tools/clawhub"
+      "destination": "/tools/rebootixhub"
     },
     {
       "source": "/configuration",
@@ -1071,7 +1071,7 @@
           "tools/reactions",
           "tools/skills",
           "tools/skills-config",
-          "tools/clawhub"
+          "tools/rebootixhub"
         ]
       },
       {

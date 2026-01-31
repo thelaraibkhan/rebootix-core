@@ -49,19 +49,19 @@ tool surface those skills teach.
 ## RebootixHub (install + sync)
 
 RebootixHub is the public skills registry for Rebootix. Browse at
-https://clawhub.com. Use it to discover, install, update, and back up skills.
-Full guide: [RebootixHub](/tools/clawhub).
+https://rebootixhub.com. Use it to discover, install, update, and back up skills.
+Full guide: [RebootixHub](/tools/rebootixhub).
 
 Common flows:
 
 - Install a skill into your workspace:
-  - `clawhub install <skill-slug>`
+  - `rebootixhub install <skill-slug>`
 - Update all installed skills:
-  - `clawhub update --all`
+  - `rebootixhub update --all`
 - Sync (scan + publish updates):
-  - `clawhub sync --all`
+  - `rebootixhub sync --all`
 
-By default, `clawhub` installs into `./skills` under your current working
+By default, `rebootixhub` installs into `./skills` under your current working
 directory (or falls back to the configured Rebootix workspace). Rebootix picks
 that up as `<workspace>/skills` on the next session.
 
@@ -294,6 +294,6 @@ See [Skills config](/tools/skills-config) for the full configuration schema.
 
 ## Looking for more skills?
 
-Browse https://clawhub.com.
+Browse https://rebootixhub.com.
 
 ---

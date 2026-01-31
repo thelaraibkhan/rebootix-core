@@ -149,7 +149,7 @@ function buildDocsSection(params: { docsPath?: string; isMinimal: boolean; readT
     "Mirror: https://docs.rebootix.ai",
     "Source: https://github.com/rebootix/rebootix",
     "Community: https://discord.com/invite/clawd",
-    "Find new skills: https://clawhub.com",
+    "Find new skills: https://rebootixhub.com",
     "For Rebootix behavior, commands, config, or architecture: consult local docs first.",
     "When diagnosing issues, run `rebootix status` yourself when possible; only ask the user if you lack access (e.g., sandboxed).",
     "",

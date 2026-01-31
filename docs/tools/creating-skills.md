@@ -47,4 +47,4 @@ Ask your agent to "refresh skills" or restart the gateway. Rebootix will discove
 
 ## Shared Skills
 
-You can also browse and contribute skills to [RebootixHub](https://clawhub.com).
+You can also browse and contribute skills to [RebootixHub](https://rebootixhub.com).

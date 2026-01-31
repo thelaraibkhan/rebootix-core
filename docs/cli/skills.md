@@ -13,7 +13,7 @@ Related:
 
 - Skills system: [Skills](/tools/skills)
 - Skills config: [Skills config](/tools/skills-config)
-- RebootixHub installs: [RebootixHub](/tools/clawhub)
+- RebootixHub installs: [RebootixHub](/tools/rebootixhub)
 
 ## Commands
 
