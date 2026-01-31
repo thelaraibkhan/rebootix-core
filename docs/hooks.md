@@ -695,7 +695,7 @@ Monitor gateway logs to see hook execution:
 
 ```bash
 # macOS
-./scripts/clawlog.sh -f
+./scripts/rebootixlog.sh -f
 
 # Other platforms
 tail -f ~/.rebootix/gateway.log
@@ -818,7 +818,7 @@ Look for missing:
 
 3. Check gateway logs for errors:
    ```bash
-   ./scripts/clawlog.sh | grep hook
+   ./scripts/rebootixlog.sh | grep hook
    ```
 
 ### Handler Errors

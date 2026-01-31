@@ -6,7 +6,7 @@
 termux-toast "Syncing Rebootix auth..."
 
 # Run sync on l36 server
-SERVER="${REBOOTIX_SERVER:-${CLAWDBOT_SERVER:-l36}}"
+SERVER="${REBOOTIX_SERVER:-${REBOOTIX_SERVER:-l36}}"
 RESULT=$(ssh "$SERVER" '/home/admin/rebootix/scripts/sync-claude-code-auth.sh' 2>&1)
 EXIT_CODE=$?
 

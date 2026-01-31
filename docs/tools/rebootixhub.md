@@ -44,7 +44,7 @@ pnpm add -g rebootixhub
 
 ## How it fits into Rebootix
 
-By default, the CLI installs skills into `./skills` under your current working directory. If a Rebootix workspace is configured, `rebootixhub` falls back to that workspace unless you override `--workdir` (or `CLAWHUB_WORKDIR`). Rebootix loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.rebootix/skills` or bundled skills, workspace skills take precedence.
+By default, the CLI installs skills into `./skills` under your current working directory. If a Rebootix workspace is configured, `rebootixhub` falls back to that workspace unless you override `--workdir` (or `REBOOTIXHUB_WORKDIR`). Rebootix loads workspace skills from `<workspace>/skills` and will pick them up in the **next** session. If you already use `~/.rebootix/skills` or bundled skills, workspace skills take precedence.
 
 For more detail on how skills are loaded, shared, and gated, see
 [Skills](/tools/skills).
@@ -182,20 +182,20 @@ Updates compare the local skill contents to registry versions using a content ha
 ### Storage and lockfile
 
 - Installed skills are recorded in `.rebootixhub/lock.json` under your workdir.
-- Auth tokens are stored in the RebootixHub CLI config file (override via `CLAWHUB_CONFIG_PATH`).
+- Auth tokens are stored in the RebootixHub CLI config file (override via `REBOOTIXHUB_CONFIG_PATH`).
 
 ### Telemetry (install counts)
 
 When you run `rebootixhub sync` while logged in, the CLI sends a minimal snapshot to compute install counts. You can disable this entirely:
 
 ```bash
-export CLAWHUB_DISABLE_TELEMETRY=1
+export REBOOTIXHUB_DISABLE_TELEMETRY=1
 ```
 
 ## Environment variables
 
-- `CLAWHUB_SITE`: Override the site URL.
-- `CLAWHUB_REGISTRY`: Override the registry API URL.
-- `CLAWHUB_CONFIG_PATH`: Override where the CLI stores the token/config.
-- `CLAWHUB_WORKDIR`: Override the default workdir.
-- `CLAWHUB_DISABLE_TELEMETRY=1`: Disable telemetry on `sync`.
+- `REBOOTIXHUB_SITE`: Override the site URL.
+- `REBOOTIXHUB_REGISTRY`: Override the registry API URL.
+- `REBOOTIXHUB_CONFIG_PATH`: Override where the CLI stores the token/config.
+- `REBOOTIXHUB_WORKDIR`: Override the default workdir.
+- `REBOOTIXHUB_DISABLE_TELEMETRY=1`: Disable telemetry on `sync`.

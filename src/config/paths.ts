@@ -50,7 +50,7 @@ export function resolveStateDir(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string {
-  const override = env.REBOOTIX_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  const override = env.REBOOTIX_STATE_DIR?.trim() || env.REBOOTIX_STATE_DIR?.trim();
   if (override) {
     return resolveUserPath(override);
   }
@@ -96,7 +96,7 @@ export function resolveCanonicalConfigPath(
   env: NodeJS.ProcessEnv = process.env,
   stateDir: string = resolveStateDir(env, os.homedir),
 ): string {
-  const override = env.REBOOTIX_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim();
+  const override = env.REBOOTIX_CONFIG_PATH?.trim() || env.REBOOTIX_CONFIG_PATH?.trim();
   if (override) {
     return resolveUserPath(override);
   }
@@ -172,13 +172,13 @@ export function resolveDefaultConfigCandidates(
   env: NodeJS.ProcessEnv = process.env,
   homedir: () => string = os.homedir,
 ): string[] {
-  const explicit = env.REBOOTIX_CONFIG_PATH?.trim() || env.CLAWDBOT_CONFIG_PATH?.trim();
+  const explicit = env.REBOOTIX_CONFIG_PATH?.trim() || env.REBOOTIX_CONFIG_PATH?.trim();
   if (explicit) {
     return [resolveUserPath(explicit)];
   }
 
   const candidates: string[] = [];
-  const rebootixStateDir = env.REBOOTIX_STATE_DIR?.trim() || env.CLAWDBOT_STATE_DIR?.trim();
+  const rebootixStateDir = env.REBOOTIX_STATE_DIR?.trim() || env.REBOOTIX_STATE_DIR?.trim();
   if (rebootixStateDir) {
     const resolved = resolveUserPath(rebootixStateDir);
     candidates.push(path.join(resolved, CONFIG_FILENAME));
@@ -237,7 +237,7 @@ export function resolveGatewayPort(
   cfg?: RebootixConfig,
   env: NodeJS.ProcessEnv = process.env,
 ): number {
-  const envRaw = env.REBOOTIX_GATEWAY_PORT?.trim() || env.CLAWDBOT_GATEWAY_PORT?.trim();
+  const envRaw = env.REBOOTIX_GATEWAY_PORT?.trim() || env.REBOOTIX_GATEWAY_PORT?.trim();
   if (envRaw) {
     const parsed = Number.parseInt(envRaw, 10);
     if (Number.isFinite(parsed) && parsed > 0) {

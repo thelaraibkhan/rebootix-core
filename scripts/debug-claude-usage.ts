@@ -47,7 +47,7 @@ const parseArgs = (): Args => {
 const loadAuthProfiles = (agentId: string) => {
   const stateRoot =
     process.env.REBOOTIX_STATE_DIR?.trim() ||
-    process.env.CLAWDBOT_STATE_DIR?.trim() ||
+    process.env.REBOOTIX_STATE_DIR?.trim() ||
     path.join(os.homedir(), ".rebootix");
   const authPath = path.join(stateRoot, "agents", agentId, "agent", "auth-profiles.json");
   if (!fs.existsSync(authPath)) {

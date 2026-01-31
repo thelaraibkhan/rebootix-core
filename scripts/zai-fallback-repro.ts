@@ -99,15 +99,15 @@ async function main() {
 
   const sessionId =
     process.env.REBOOTIX_ZAI_FALLBACK_SESSION_ID ??
-    process.env.CLAWDBOT_ZAI_FALLBACK_SESSION_ID ??
+    process.env.REBOOTIX_ZAI_FALLBACK_SESSION_ID ??
     randomUUID();
 
   const baseEnv: NodeJS.ProcessEnv = {
     ...process.env,
     REBOOTIX_CONFIG_PATH: configPath,
     REBOOTIX_STATE_DIR: stateDir,
-    CLAWDBOT_CONFIG_PATH: configPath,
-    CLAWDBOT_STATE_DIR: stateDir,
+    REBOOTIX_CONFIG_PATH: configPath,
+    REBOOTIX_STATE_DIR: stateDir,
     ZAI_API_KEY: zaiKey,
     Z_AI_API_KEY: "",
   };

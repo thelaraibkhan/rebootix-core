@@ -12,7 +12,7 @@ Use tmux only when you need an interactive TTY. Prefer exec background mode for 
 ## Quickstart (isolated socket, exec tool)
 
 ```bash
-SOCKET_DIR="${REBOOTIX_TMUX_SOCKET_DIR:-${CLAWDBOT_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/rebootix-tmux-sockets}}"
+SOCKET_DIR="${REBOOTIX_TMUX_SOCKET_DIR:-${REBOOTIX_TMUX_SOCKET_DIR:-${TMPDIR:-/tmp}/rebootix-tmux-sockets}}"
 mkdir -p "$SOCKET_DIR"
 SOCKET="$SOCKET_DIR/rebootix.sock"
 SESSION=rebootix-python
@@ -32,7 +32,7 @@ To monitor:
 
 ## Socket convention
 
-- Use `REBOOTIX_TMUX_SOCKET_DIR` (legacy `CLAWDBOT_TMUX_SOCKET_DIR` also supported).
+- Use `REBOOTIX_TMUX_SOCKET_DIR` (legacy `REBOOTIX_TMUX_SOCKET_DIR` also supported).
 - Default socket path: `"$REBOOTIX_TMUX_SOCKET_DIR/rebootix.sock"`.
 
 ## Targeting panes and naming

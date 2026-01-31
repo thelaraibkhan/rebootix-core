@@ -21,7 +21,7 @@ agent (with a session switcher for other sessions).
   ```bash
   dist/Rebootix.app/Contents/MacOS/Rebootix --webchat
   ```
-- Logs: `./scripts/clawlog.sh` (subsystem `bot.molt`, category `WebChatSwiftUI`).
+- Logs: `./scripts/rebootixlog.sh` (subsystem `bot.molt`, category `WebChatSwiftUI`).
 
 ## How it’s wired
 

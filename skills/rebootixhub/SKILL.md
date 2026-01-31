@@ -72,6 +72,6 @@ rebootixhub publish ./my-skill --slug my-skill --name "My Skill" --version 1.2.0
 
 Notes
 
-- Default registry: https://rebootixhub.com (override with CLAWHUB_REGISTRY or --registry)
-- Default workdir: cwd (falls back to Rebootix workspace); install dir: ./skills (override with --workdir / --dir / CLAWHUB_WORKDIR)
+- Default registry: https://rebootixhub.com (override with REBOOTIXHUB_REGISTRY or --registry)
+- Default workdir: cwd (falls back to Rebootix workspace); install dir: ./skills (override with --workdir / --dir / REBOOTIXHUB_WORKDIR)
 - Update command hashes local files, resolves matching version, and upgrades to latest unless --version is set

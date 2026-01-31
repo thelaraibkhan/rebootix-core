@@ -5,7 +5,7 @@
 # One-tap: shows status toast
 # If expired: directly opens auth URL
 
-SERVER="${REBOOTIX_SERVER:-${CLAWDBOT_SERVER:-l36}}"
+SERVER="${REBOOTIX_SERVER:-${REBOOTIX_SERVER:-l36}}"
 
 STATUS=$(ssh -o ConnectTimeout=5 "$SERVER" '$HOME/rebootix/scripts/claude-auth-status.sh simple' 2>&1)
 
