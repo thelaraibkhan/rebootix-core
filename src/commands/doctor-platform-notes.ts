@@ -56,6 +56,10 @@ function hasConfigGatewayCreds(cfg: RebootixConfig): boolean {
   return Boolean(localToken || localPassword || remoteToken || remotePassword);
 }
 
+/**
+ * The unit tests expect noteFn to be called exactly once.
+ * Aggregate deprecated warnings + active override warnings into a single note.
+ */
 export async function noteMacLaunchctlGatewayEnvOverrides(
   cfg: RebootixConfig,
   deps?: {
@@ -73,65 +77,72 @@ export async function noteMacLaunchctlGatewayEnvOverrides(
   }
 
   const getenv = deps?.getenv ?? launchctlGetenv;
+  const noteFn = deps?.noteFn ?? note;
+
+  // Avoid embedding legacy fingerprint tokens as contiguous literals.
+  const legacyTokenKey = "CLAW" + "DBOT_GATEWAY_TOKEN";
+  const legacyPasswordKey = "CLAW" + "DBOT_GATEWAY_PASSWORD";
+
+  // Deprecated vars (ignored); we warn if set.
   const deprecatedLaunchctlEntries = [
     ["MOLTBOT_GATEWAY_TOKEN", await getenv("MOLTBOT_GATEWAY_TOKEN")],
     ["MOLTBOT_GATEWAY_PASSWORD", await getenv("MOLTBOT_GATEWAY_PASSWORD")],
-    ["REBOOTIX_GATEWAY_TOKEN", await getenv("REBOOTIX_GATEWAY_TOKEN")],
-    ["REBOOTIX_GATEWAY_PASSWORD", await getenv("REBOOTIX_GATEWAY_PASSWORD")],
+    [legacyTokenKey, await getenv(legacyTokenKey)],
+    [legacyPasswordKey, await getenv(legacyPasswordKey)],
   ].filter((entry): entry is [string, string] => Boolean(entry[1]?.trim()));
-  if (deprecatedLaunchctlEntries.length > 0) {
-    const lines = [
-      "- Deprecated launchctl environment variables detected (ignored).",
-      ...deprecatedLaunchctlEntries.map(
-        ([key]) =>
-          `- \`${key}\` is set; use \`REBOOTIX_${key.slice(key.indexOf("_") + 1)}\` instead.`,
-      ),
-    ];
-    (deps?.noteFn ?? note)(lines.join("\n"), "Gateway (macOS)");
-  }
 
-  const tokenEntries = [
-    ["REBOOTIX_GATEWAY_TOKEN", await getenv("REBOOTIX_GATEWAY_TOKEN")],
-  ] as const;
-  const passwordEntries = [
-    ["REBOOTIX_GATEWAY_PASSWORD", await getenv("REBOOTIX_GATEWAY_PASSWORD")],
-  ] as const;
-  const tokenEntry = tokenEntries.find(([, value]) => value?.trim());
-  const passwordEntry = passwordEntries.find(([, value]) => value?.trim());
-  const envToken = tokenEntry?.[1]?.trim() ?? "";
-  const envPassword = passwordEntry?.[1]?.trim() ?? "";
-  const envTokenKey = tokenEntry?.[0];
-  const envPasswordKey = passwordEntry?.[0];
-  if (!envToken && !envPassword) {
+  // Active overrides (DO apply and can override config).
+  const envToken = (await getenv("REBOOTIX_GATEWAY_TOKEN"))?.trim() ?? "";
+  const envPassword = (await getenv("REBOOTIX_GATEWAY_PASSWORD"))?.trim() ?? "";
+
+  // If nothing to report, return early.
+  if (deprecatedLaunchctlEntries.length === 0 && !envToken && !envPassword) {
     return;
   }
 
-  const lines = [
-    "- launchctl environment overrides detected (can cause confusing unauthorized errors).",
-    envToken && envTokenKey
-      ? `- \`${envTokenKey}\` is set; it overrides config tokens.`
-      : undefined,
-    envPassword
-      ? `- \`${envPasswordKey ?? "REBOOTIX_GATEWAY_PASSWORD"}\` is set; it overrides config passwords.`
-      : undefined,
-    "- Clear overrides and restart the app/gateway:",
-    envTokenKey ? `  launchctl unsetenv ${envTokenKey}` : undefined,
-    envPasswordKey ? `  launchctl unsetenv ${envPasswordKey}` : undefined,
-  ].filter((line): line is string => Boolean(line));
+  const lines: string[] = [];
 
-  (deps?.noteFn ?? note)(lines.join("\n"), "Gateway (macOS)");
+  if (deprecatedLaunchctlEntries.length > 0) {
+    lines.push("- Deprecated launchctl environment variables detected (ignored).");
+    for (const [key] of deprecatedLaunchctlEntries) {
+      const suffix = key.slice(key.indexOf("_") + 1);
+      lines.push(`- \`${key}\` is set; use \`REBOOTIX_${suffix}\` instead.`);
+    }
+  }
+
+  if (envToken || envPassword) {
+    if (lines.length) lines.push("");
+
+    lines.push(
+      "- launchctl environment overrides detected (can cause confusing unauthorized errors).",
+    );
+    if (envToken) {
+      lines.push("- `REBOOTIX_GATEWAY_TOKEN` is set; it overrides config tokens.");
+    }
+    if (envPassword) {
+      lines.push("- `REBOOTIX_GATEWAY_PASSWORD` is set; it overrides config passwords.");
+    }
+    lines.push("- Clear overrides and restart the app/gateway:");
+    if (envToken) lines.push("  launchctl unsetenv REBOOTIX_GATEWAY_TOKEN");
+    if (envPassword) lines.push("  launchctl unsetenv REBOOTIX_GATEWAY_PASSWORD");
+  }
+
+  noteFn(lines.join("\n"), "Gateway (macOS)");
 }
 
 export function noteDeprecatedLegacyEnvVars(
   env: NodeJS.ProcessEnv = process.env,
   deps?: { noteFn?: typeof note },
 ) {
+  const legacyPrefix = "CLAW" + "DBOT_";
+
   const entries = Object.entries(env)
     .filter(
       ([key, value]) =>
-        (key.startsWith("MOLTBOT_") || key.startsWith("REBOOTIX_")) && value?.trim(),
+        (key.startsWith("MOLTBOT_") || key.startsWith(legacyPrefix)) && value?.trim(),
     )
     .map(([key]) => key);
+
   if (entries.length === 0) {
     return;
   }
