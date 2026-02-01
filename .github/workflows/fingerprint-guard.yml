@@ -1,0 +1,40 @@
+name: fingerprint-guard
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block upstream fingerprints
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          # Build banned tokens without writing them literally in this repo
+          o="open"; c="claw"; h="hub"; b="dbot"; l="log"
+          oc="${o}${c}"
+          ch="${c}${h}"
+          cb="${c}${b}"
+          cl="${c}${l}"
+
+          e1="CLAW"; e2="DBOT_"; e3="HUB_"
+          env1="${e1}${e2}"
+          env2="${e1}${e3}"
+
+          x1="only"; x2="crabs"
+          only="${x1}${x2}"
+
+          m1="mintcdn.com/"; m2="${c}${h}"
+
+          MATCH_RE="${oc}|${cb}|${ch}|${only}|@${oc}|${cl}|${env1}|${env2}|${m1}${m2}"
+
+          # content check
+          git grep -nEI "${MATCH_RE}" -- . && exit 1 || true
+          # tracked paths check
+          git ls-files | grep -nEI "${MATCH_RE}" && exit 1 || true
+
+          echo "OK: no fingerprints"
